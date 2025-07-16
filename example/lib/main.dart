@@ -1,5 +1,5 @@
+import 'package:auto_translator_example/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,34 +22,38 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  Widget _getPopupMenu() {
+    return PopupMenuButton<Locale>(
+      itemBuilder: (context) => AppLocalizations.supportedLocales
+          .map(
+            (locale) => PopupMenuItem(
+              value: locale,
+              child: Text(locale.languageCode),
+            ),
+          )
+          .toList(),
+      onSelected: (locale) => setState(() => this.locale = locale),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
-      onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
+      onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       supportedLocales: AppLocalizations.supportedLocales,
       locale: locale,
       home: Builder(builder: (context) {
-        final localizedText = AppLocalizations.of(context)!;
+        final localizedText = AppLocalizations.of(context);
         return Scaffold(
           appBar: AppBar(
             title: FittedBox(child: Text(localizedText.homePageTitle)),
             actions: [
-              PopupMenuButton<Locale>(
-                itemBuilder: (context) => AppLocalizations.supportedLocales
-                    .map(
-                      (locale) => PopupMenuItem(
-                        value: locale,
-                        child: Text(locale.languageCode),
-                      ),
-                    )
-                    .toList(),
-                onSelected: (locale) => setState(() => this.locale = locale),
-              )
+              _getPopupMenu(),
             ],
           ),
           body: Center(

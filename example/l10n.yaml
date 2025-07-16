@@ -1,6 +1,10 @@
-arb-dir: lib/l10n
+arb-dir: l10n
 template-arb-file: app_en.arb
 output-localization-file: app_localizations.dart
+output-dir: lib/l10n
+nullable-getter: false
+synthetic-package: false
+untranslated-messages-file: l10n/untranslated.txt
 
 translator:
   # key_file: translator_key
@@ -13,15 +17,14 @@ translator:
     - tr
     - uk
 
-  prefer-lang-templates: 
+  prefer-lang-templates:
     fr: es-ES
     de: es-ES
     uk: de
-  
+
   prefer-service:
     deepL:
       - tr
       - uk
     # Google:
     #   - es-Es
-  
